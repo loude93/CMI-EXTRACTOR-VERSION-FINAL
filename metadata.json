@@ -1,0 +1,5 @@
+{
+  "name": "CMI EXTRACTOR",
+  "description": "An intelligent financial dashboard that extracts key metrics from PDF statements using Gemini AI and exports them to Excel formats.",
+  "requestFramePermissions": []
+}
