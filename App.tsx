@@ -19,7 +19,7 @@ import {
   Cpu
 } from 'lucide-react';
 import { ExtractionResult, ExtractionState } from './types';
-import { extractDataFromPdf } from './services/geminiService';
+import { extractDataFromPdf } from './services/backendService';
 import { exportToExcel } from './utils/excelExport';
 import StatsCard from './components/StatsCard';
 
@@ -37,16 +37,7 @@ const App: React.FC = () => {
     setState(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      let allNewInvoices: ExtractionResult[] = [];
-      const apiKey = process.env.API_KEY || '';
-      
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (file.type !== 'application/pdf') continue;
-        
-        const results = await extractDataFromPdf(file, apiKey);
-        allNewInvoices = [...allNewInvoices, ...results];
-      }
+      const allNewInvoices = await extractDataFromPdf(files);
 
       setState(prev => ({
         ...prev,
@@ -58,7 +49,7 @@ const App: React.FC = () => {
       setState(prev => ({
         ...prev,
         isLoading: false,
-        error: "Failed to extract data. Ensure the PDF contains the financial variables requested.",
+        error: "Extraction failed on backend. Verify your PDF files and backend availability.",
       }));
     }
   };

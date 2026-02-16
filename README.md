@@ -1,20 +1,39 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# CMI Extractor (Frontend + Lightweight Backend)
 
-# Run and deploy your AI Studio app
+This app uses a **local backend** and is **not connected to Gemini API**.
 
-This contains everything you need to run your app locally.
+## Run locally
 
-View your app in AI Studio: https://ai.studio/apps/drive/1V9_DNB58Y4HvU3D86JP8AOvAVLDZ1ikM
+### 1) Install dependencies
+```bash
+npm install
+```
 
-## Run Locally
+### 2) Start backend (port 4000)
+```bash
+npm run server
+```
 
-**Prerequisites:**  Node.js
+### 3) Start frontend (port 3000)
+```bash
+npm run dev
+```
 
+Optional frontend env:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+VITE_BACKEND_URL=http://localhost:4000
+```
+
+## API
+
+- `GET /api/health`
+- `POST /api/extract` with JSON body:
+
+```json
+{
+  "files": [
+    { "name": "statement.pdf", "base64": "<base64-pdf>" }
+  ]
+}
+```
